@@ -182,6 +182,35 @@ This structured pipeline ensures improved model accuracy and reduces the risk of
 
 These predictions help assess how well the model generalizes to new data, which is critical for validating its effectiveness and reliability.
 
+## 📊 EDA Overview
+
+Here are some previews into the dataset that are explored by the script `notebooks/0_eda.ipynb`. 
+
+The EDA process typically includes cleanup of data. This could be in the form of cleaning up data types (i.e. you have numerical data that has been stored in text format), removing duplicates, standardizing formats, dealing with missing data, and many others. To determine the best way of handling missing information, it is helpful to understand what fraction of the dataset is missing. While there are many ways to do this, in this project we sort columns based on the \% of empty cells they contain. We can then apply a cut at a percentile of our choosing, i.e. removing all columns that contain 50% or more missing cells.
+
+<p align="center">
+  <img src="/assets/missing_data.png" width="500" />
+</p>
+
+Deeper into the notebook, we break out properties based on their type, such as office spaces, schools, or housing. Then we can use density plots to observe whether or not the distribution Energy Star Scores varies based on property type. This same exercise is repeated using the year in which a building was constructed as its category. Both figures are below. The key takeaway from both of these figures is that there is, in fact, a trend between property types, year of construction, and Energy Star scores.
+
+<p align="center">
+  <img src="/assets/density_by_type.png" width="350" />
+  <img src="/assets/density_by_year.png" width="350" /> 
+
+</p>
+
+Correlation studies are also a necessary part of the EDA process. They are important when it comes to removing collinear terms, and identifying those terms which are most strongly related to the target variable. In this project, you will find that the energy scores are strongly correlated to Site EUI (Energy Usage Intensity, or energy usage per square footage). To understand the nature of the relationship (i.e. is it linear, or is it more complex?) we can visualize the data with a scatter plot as follows. This shows that the relationship is not exactly linear, but that we should definitely include Site EUI as an input parameter in our ML model. 
+
+<p align="center">
+  <img src="/assets/site_EUI_score_scatter.png" width="400" />
+</p>
+
+Some of the more advanced figures produced for EDA also include the pairs plots below. These show distributions of single parameters along the diagonal, scatter plots between two parameters in the upper half of the matrix, and 2-D density plots in the lower half. They help us visualize which relationships have stronger correlations, such as Site EUI and Weather-Normalized EUI, and which have weaker correlations, such as the log of the GHG Emissions (Greenhouse gas emissions). This gives us a more intuitive understanding of the relationships in our data which will inform ML modelling decisions.
+
+<p align="center">
+  <img src="/assets/pairs_plots.png" width="400" />
+</p>
 
 ## 📊 Project Results Summary
 
