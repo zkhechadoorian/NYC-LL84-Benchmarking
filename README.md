@@ -129,13 +129,13 @@ In the second notebook, you built and evaluated multiple machine learning models
   * Gradient Boosting
   * K-Nearest Neighbors (KNN)
 
-* Each model's performance was compared using Mean Absolute Error (MAE), and Gradient Boosting emerged as the best-performing model.
+* Each model's performance was compared using Mean Absolute Error (MAE), Mean Squared Error (MSE), and Huber Loss. Gradient Boosting and Random Forest emerged as the best-performing models using default hyperparameter settings. Their performance was similar, so we chose to go forward with Gradient Boosting by improving it with hyperparameter optimization. 
 
 # Part 3: Model Optimization and Validation
 **Run jupyter notebook for the Part 3 `notebooks/machine_learning_part3.ipynb`**
 
 
-In the final notebook, you focused on optimizing and validating the best-performing model from Part 2 (Gradient Boosting):
+In the final notebook, you focused on optimizing and validating the chosen model from Part 2 (Gradient Boosting):
 
 ## 1. Hyperparameter Tuning
 
@@ -155,8 +155,6 @@ In the final notebook, you focused on optimizing and validating the best-perform
 
 * Tested the optimized model on an unseen test set to realistically estimate its predictive capability.
 * Compared final model performance against a simpler baseline and default model configurations, demonstrating a substantial improvement.
-
-
 
 
 ### Step 4 ML Pipeline
@@ -212,14 +210,37 @@ Some of the more advanced figures produced for EDA also include the pairs plots 
   <img src="/assets/pairs_plots.png" width="400" />
 </p>
 
+## 📊 Machine Learning Model Comparisons
+
+In the second notebook, we explore different machine learning models and compare their performance using different loss functions. Below is a comparison figure.
+
+<p align="center">
+  <img src="assets/model_comparison.png" width="400" />
+</p>
+
+The Gradient Boosted model produces the following learning curve. While the training error appears much smaller than the testing error, the differnece between the two is only about 1.0 unit in Star Energy Score--very reasonable for a percentile value. In other words, even with the higher error in the test dataset, the model is still predicting energy scores that are, on average, within 2.0 from their truth value.
+
+<p align="center">
+  <img src="assets/learning_curve.png" width="400" />
+</p>
+
+
 ## 📊 Project Results Summary
 
 The goal of this machine learning project was to predict the **Energy Star Score** of New York City buildings using real-world energy usage data. After executing the end-to-end ML pipeline—data cleaning, feature engineering, model selection, hyperparameter tuning, and evaluation—we achieved the following results:
 
 ### ✅ Key Results
 
-#### Model Performance
-* The final machine learning model is able to predict the Energy Star Score within an average error of **±10 points**, demonstrating strong predictive capability on the test set.
+Our predictions closely resemble true values of Energy Star Scores in the test dataset, with the caveat that the model tends to overpredict values at the higher end (~80). Though the mean error is about 2 points, the distribution of residuals shows that some test predictions are as far away as $\pm$ 10 points from truth value. 
+
+<p align="center">
+  <img src="assets/values_vs_predictions.png" width="350" />
+  <img src="assets/residuals.png" width="350" />
+</p>
+
+#### Model Performance & Conclusions
+* The final machine learning model is able to predict the Energy Star Score within an average error of **2 points**, demonstrating strong predictive capability on the test set. The most important variables for determining the Energy Star Score are the Energy Use Intensity, Nation Energy Use Intensiy, Electricity Use Intensity, and the Property Type.
+
 #### Reproducibility and Code Quality
 * All steps were documented using **Jupyter Notebooks**
 * Code was modularized and thoroughly **commented** for clarity and future reusability
